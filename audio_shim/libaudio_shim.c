@@ -14,6 +14,8 @@
 
 #define EXT_SPEAKER_SWITCH_CTRL_ID 	6
 #define EXT_HP_SWITCH_CTRL_ID 		7
+#define L_GAIN_CTRL_ID			9
+#define R_GAIN_CTRL_ID			10
 
 struct mixer_ctl {
     struct mixer *mixer;
@@ -43,7 +45,12 @@ int mixer_ctl_set_enum_by_string(struct mixer_ctl *ctl, const char *string) {
 	int (*orig_mixer_ctl_set_enum_by_string)(struct mixer_ctl *ctl, const char *string);
 	
 	orig_mixer_ctl_set_enum_by_string = dlsym(RTLD_NEXT, "mixer_ctl_set_enum_by_string");
-	
+
+	if(ctl == NULL) {
+		ALOGE("mixer_ctl_set_enum_by_string passed NULL");
+		return -1;
+	}
+
 	ALOGD("mixer_ctl_set_enum_by_string, id:%d, name:%s, val:%s",ctl->info->id.numid, ctl->info->id.name, string);
 	
 	if(ctl->info->id.numid == EXT_SPEAKER_SWITCH_CTRL_ID) {
@@ -67,6 +74,11 @@ int mixer_ctl_set_enum_by_string(struct mixer_ctl *ctl, const char *string) {
 			}
 		}
 	}
+
+        else if(ctl->info->id.numid == L_GAIN_CTRL_ID || ctl->info->id.numid == R_GAIN_CTRL_ID) {
+                ALOGD("Detected Gain Command: %s", string);
+                return orig_mixer_ctl_set_enum_by_string(ctl, "9Db");
+        }
 	
 	return orig_mixer_ctl_set_enum_by_string(ctl, string);
 }
