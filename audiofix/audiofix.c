@@ -19,7 +19,7 @@
 
 #define EXT_SPEAKER_SWITCH_CTRL     "Ext_Speaker_Amp_Switch"
 #define EXT_HEADPHONE_SWITCH_CTRL   "Ext_Headphone_Amp_Switch"
-#define AUDIO_I2S0DL1_HD_SWITCH     "Audio_I2S0dl1_hd_Switch"
+#define AUDIO_AMP_L_SWITCH          "Audio_Amp_L_Switch"
 
 #define ON 1
 #define OFF 0
@@ -59,7 +59,7 @@ void setALSAControlValue(char *name, int value)
 
     if (mixer_ctl_set_value(ctl, 0, value) != 0)
     {
-        ALOGE("Filed to set value %s", name);
+       ALOGE("Failed to set value %s", name);
     }
 
     mixer_close(mixer1);
@@ -231,7 +231,7 @@ int main()
             ParseEvent(msg, &evt);
             if (strcmp(evt.action, "change") == 0 && strcmp(evt.path, "/devices/virtual/switch/h2w") == 0)
             {
-                if (getALSAControlValue(AUDIO_I2S0DL1_HD_SWITCH) == 1)
+ 	     if (getALSAControlValue(AUDIO_AMP_L_SWITCH) == 1)
                 {
                     UpdateAudioInterface(h2wStatefd);
                 }
