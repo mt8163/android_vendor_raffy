@@ -31,7 +31,7 @@ int readH2wState() {
 	h2wStatefd = open(H2W_STATE_FD, O_RDONLY);
     if (h2wStatefd == -1)
     {
-        ALOGE("Filed to open h2w state, Exiting");
+        ALOGE("Failed to open h2w state, Exiting");
         return -1;
     }
 
