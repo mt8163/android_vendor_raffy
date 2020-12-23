@@ -14,18 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#define LOG_TAG "audio-shim"
 
 #include <dlfcn.h>
 #include <fcntl.h>
 #include <log.h>
+#include <time.h>
 #include <sound/asound.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <tinyalsa/asoundlib.h>
 #include <unistd.h>
-
-#define LOG_TAG "audio-shim"
 
 #define H2W_STATE_FD "/sys/class/switch/h2w/state"
 
