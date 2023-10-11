@@ -1,0 +1,22 @@
+cc_binary {
+    name: "headsetd",
+
+    include_dirs: [
+        "external/tinyalsa/include",
+        "system/core/include/cutils",
+    ],
+
+    local_include_dirs: ["include"],
+
+    shared_libs: [
+        "libbase",
+        "libcutils",
+        "libtinyalsa",
+    ],
+
+    srcs: ["headsetd.cpp", "uevent_parser.cpp"],
+    init_rc: ["headsetd.rc"],
+
+    relative_install_path: "hw",
+
+}

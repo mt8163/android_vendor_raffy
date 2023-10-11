@@ -1,7 +1,7 @@
 on property:dev.bootcomplete=1
-    start audiofix
+    start headsetd
 
-service audiofix /system/xbin/audiofix
+service headsetd /system/bin/hw/headsetd
     user root
     group root
     oneshot
